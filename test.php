@@ -66,6 +66,18 @@
 
             <input type="submit" name="FilmSubmit" value="Ajouter">
         </form>
+
+    <?php
+    try {
+        $MaBase = new PDO('mysql:host=mysql-bordrezcesar.alwaysdata.net;dbname=bordrezcesar_film', '256339_alexis', 'bordrez0908cesar2207');
+        $resultat = $MaBase->query("SELECT * FROM FILM");
+        while ($tab = $resultat->fetch()){
+            echo '<p>Nom:' .$tab['Nom'].'<p>';
+        }
+    }catch(exception $e){
+        die('Erreur '.$e->getMessage());
+    }
+    ?>
     </div>
 
 </body>
