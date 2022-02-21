@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-    //Traitement du formulaire de connexion
+    <!--Traitement du formulaire de connexion-->
         if(isset($_POST["Valider"])){
         if($_POST["password"]=="root" && $_POST["login"]=="root" ){
             //Si le login est le mdp est bon alors la connexion est valide
@@ -18,7 +18,7 @@
         }      
     }
     ?>
-    //Création du formulaire de connexion
+    // Création du formulaire de connexion
     <div id="container">
     <form action="" method="post">
         <h1>Connexion</h1>
