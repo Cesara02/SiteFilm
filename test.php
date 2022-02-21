@@ -10,9 +10,10 @@
     <?php
         $Crud ='0';
         if(isset($_POST["FilmSubmit"])){
-            if(!empty($_POST["NomFilm"])){
+            if(!empty($_POST["NomFilm"] && $_POST["NoteFilm"])){
                 $Crud = 'C';
                 $NomFilm = $_POST["NomFilm"];
+                $NoteFilm = $_POST["NoteFilm"];
             }
         }
 
@@ -22,7 +23,7 @@
                 if($MaBase){
                     switch ($Crud){
                         case 'C':
-                            $req = "INSERT INTO `FILM`( `Nom`) VALUES ('".$NomFilm."')";
+                            $req = "INSERT INTO `FILM`( `Nom`, `Note`) VALUES ('".$NomFilm."','".$NoteFilm."')";
                             $RequetStatement = $MaBase->query($req);
 
                             if($RequetStatement){
@@ -61,8 +62,10 @@
 
     <div class = "affiche">
         <form action="" method="post" class="form-example">
-            <label for="NomFilm">Nom du film </label>
+            <label for="NomFilm">Nom du film</label>
             <input type="text" name="NomFilm" id="NomFilm" required>
+            <label for="NoteFilm">Note</label>
+            <input type="text" placeholder="Entrer une note de 1 à 5" name="NoteFilm" id="NoteFilm" required>
 
             <input type="submit" name="FilmSubmit" value="Ajouter">
         </form>
@@ -70,15 +73,22 @@
     <?php
     try {
         $MaBase = new PDO('mysql:host=mysql-bordrezcesar.alwaysdata.net;dbname=bordrezcesar_film', '256339_alexis', 'bordrez0908cesar2207');
-        $resultat = $MaBase->query("SELECT * FROM FILM");
-        while ($tab = $resultat->fetch()){
-            echo '<p>Nom:' .$tab['Nom'].'<p>';
+        $reqFilm = $MaBase->query("SELECT * FROM FILM ORDER BY Note DESC");
+    ?>
+        <table width="100%" border="1" cellpadding="5">
+            <tr>
+                <th>Nom Film</td>
+                <th>Note Film</td>
+            </tr>
+        <?php
+        while ($tab = $reqFilm->fetch()){
+            echo "<tr><td> {$tab['Nom']}</td><td>{$tab['Note']}</td></tr>\n";
         }
     }catch(exception $e){
         die('Erreur '.$e->getMessage());
     }
     ?>
-    </div>
-
+    <p></p>
+</div>
 </body>
 </html>
