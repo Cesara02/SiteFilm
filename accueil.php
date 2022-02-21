@@ -8,25 +8,33 @@
 </head>
 <body>
     <?php
+    //On récupére les données du formulaire
         $Crud ='0';
         if(isset($_POST["FilmSubmit"])){
+            //Verification du contenu des champs
             if(!empty($_POST["NomFilm"] && $_POST["NoteFilm"])){
+                //Insertion des champs dans les tables
                 $Crud = 'C';
                 $NomFilm = $_POST["NomFilm"];
                 $NoteFilm = $_POST["NoteFilm"];
             }
         }
-
+         //Connexion a la BDD avec PDO
         if($Crud!='0'){
             try{
+                //Le PDO attend des paramétre comme le nom de la base , le user avec son mot de pass
                 $MaBase = new PDO('mysql:host=mysql-bordrezcesar.alwaysdata.net;dbname=bordrezcesar_film', '256339_alexis', 'bordrez0908cesar2207');
+                //Si la connexion est vrai alors on continue
                 if($MaBase){
+                    //Switch pour gérer les requettes
                     switch ($Crud){
                         case 'C':
+                            //On crée la requête
                             $req = "INSERT INTO `FILM`( `Nom`, `Note`) VALUES ('".$NomFilm."','".$NoteFilm."')";
                             $RequetStatement = $MaBase->query($req);
-
+                            //Vérification du statement
                             if($RequetStatement){
+                                //Si la BDD répond '00000' alors c'est ok
                                 if( $RequetStatement->errorCode()=='00000'){
                                     echo "";
                                 }else{
@@ -55,11 +63,11 @@
                 }
             }
     ?>
-
+//On crée le header
     <div class="header"> 
         <img src="assets/logo.png" width="120" alt="logo">
     </div>
-
+//On va maintenant afficher le formulaire pour inserer un film
     <div class = "affiche">
         <form action="" method="post" class="form-example">
             <label for="NomFilm">Nom du film</label>
@@ -69,18 +77,20 @@
 
             <input type="submit" name="FilmSubmit" value="Ajouter">
         </form>
-
+    //Requete pour récuperer les données que l'utlisateur a saisie
     <?php
     try {
         $MaBase = new PDO('mysql:host=mysql-bordrezcesar.alwaysdata.net;dbname=bordrezcesar_film', '256339_alexis', 'bordrez0908cesar2207');
         $reqFilm = $MaBase->query("SELECT * FROM FILM ORDER BY Note DESC");
     ?>
+        //On crée un tableau pour rangée les films ainsi que les notes
         <table width="100%" border="1" cellpadding="5">
             <tr>
                 <th>Nom Film</td>
                 <th>Note Film)</td>
             </tr>
         <?php
+        //On affiche le résultat
         while ($tab = $reqFilm->fetch()){
             echo "<tr><td> {$tab['Nom']}</td><td>{$tab['Note']} ⭐</td></tr>\n";
         }
