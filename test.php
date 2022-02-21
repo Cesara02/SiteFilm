@@ -78,11 +78,11 @@
         <table width="100%" border="1" cellpadding="5">
             <tr>
                 <th>Nom Film</td>
-                <th>Note Film</td>
+                <th>Note Film)</td>
             </tr>
         <?php
         while ($tab = $reqFilm->fetch()){
-            echo "<tr><td> {$tab['Nom']}</td><td>{$tab['Note']}</td></tr>\n";
+            echo "<tr><td> {$tab['Nom']}</td><td>{$tab['Note']} ⭐</td></tr>\n";
         }
     }catch(exception $e){
         die('Erreur '.$e->getMessage());
