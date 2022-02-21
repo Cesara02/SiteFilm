@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <title>Exo Final TP1 php</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
 </head>
 <body>
     <?php
